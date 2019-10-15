@@ -1,4 +1,4 @@
-package br.senac.chamados;
+package br.senac.chamados.model;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,16 +21,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+import br.senac.chamados.R;
+import br.senac.chamados.TabsActivity;
 import br.senac.chamados.api.APIService;
 import br.senac.chamados.api.ApiUtils;
-import br.senac.chamados.model.Chamado;
-import br.senac.chamados.model.Status;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class NovaMensagemActivity extends AppCompatActivity {
+public class FecharChamadoActivity extends AppCompatActivity {
 
     private APIService mAPIService;
     private TextView mResponseTv;
@@ -38,10 +38,11 @@ public class NovaMensagemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nova_mensagem);
+        setContentView(R.layout.activity_descricao_solucao);
 
-        final EditText edtMensagem = (EditText) findViewById(R.id.edt_mensagem);
-        Button btnEnviarMensagem = (Button) findViewById(R.id.btn_enviar_mensagem);
+        final EditText edtMensagem = (EditText) findViewById(R.id.descricao);
+        final EditText edtMensagem2 = (EditText) findViewById(R.id.solucao);
+        Button btnEnviarMensagem = (Button) findViewById(R.id.buttonSave);
 
         mAPIService = ApiUtils.getService();
 
@@ -51,17 +52,24 @@ public class NovaMensagemActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String mensagem = edtMensagem.getText().toString().trim();
+                String mensagem2 = edtMensagem2.getText().toString().trim();
                 Chamado chamado = new Chamado();
                 chamado.setDescricao(mensagem);
-                
-                    if (!TextUtils.isEmpty(mensagem)) {
-                        enviarMensagem(chamado, getApplicationContext());
-                    }
+                chamado.setSolucao(mensagem2);
 
+                if (!TextUtils.isEmpty(mensagem)) {
+                    enviarMensagem(chamado, getApplicationContext());
+                }
 
 
             }
         });
+
+
+
+        mAPIService = ApiUtils.getService();
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -72,12 +80,11 @@ public class NovaMensagemActivity extends AppCompatActivity {
 
         Date dataAbertura = new Date();
         mAPIService = ApiUtils.getService();
-        chamado.setSolucao("aguardando");
 
         Map<String, String> jsonParams = new ArrayMap<>();
         jsonParams.put("descricao", chamado.getDescricao());
         jsonParams.put("dataAbertura", sdf.format(dataAbertura.getTime()));
-        jsonParams.put("status", Status.ABERTO.toString());
+        jsonParams.put("status", Status.FECHADO.toString());
         jsonParams.put("solucao",chamado.getSolucao());
 
 
@@ -95,7 +102,7 @@ public class NovaMensagemActivity extends AppCompatActivity {
                 try
                 {
                     Toast.makeText(context, "Chamado enviado com sucesso!!!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(NovaMensagemActivity.this, TabsActivity.class);
+                    Intent intent = new Intent(FecharChamadoActivity.this, TabsActivity.class);
                     startActivity(intent);
                 }
                 catch (Exception e)

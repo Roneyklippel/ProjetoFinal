@@ -10,6 +10,8 @@ import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
 
+import br.senac.chamados.model.FecharChamadoActivity;
+
 public class TabsActivity extends AppCompatActivity {
 
     private TabAdapter adapter;
@@ -30,15 +32,29 @@ public class TabsActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        Button btnNovaMensagem = (Button) findViewById(R.id.btn_nova_mensagem);
+        Button btnNovaMensagem = (Button) findViewById(R.id.btn_novo_Chamado);
 
         btnNovaMensagem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TabsActivity.this, NovaMensagemActivity.class);
                 startActivity(intent);
+
             }
         });
+
+        Button btnNovoChamadoFechado = (Button) findViewById(R.id.btnNovoChamadoFechado);
+
+        btnNovoChamadoFechado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(TabsActivity.this, FecharChamadoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 
 }

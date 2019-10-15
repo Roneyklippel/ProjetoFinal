@@ -34,7 +34,7 @@ public class ChamadosFechados extends Fragment {
 
         final FloatingActionButton btnAtualizar = (FloatingActionButton) viewFragment.findViewById(R.id.btn_atualizar2);
 
-        //atualizaListaMensagens(viewFragment);
+        atualizaListaMensagens(viewFragment);
 
         btnAtualizar.setOnClickListener(new View.OnClickListener() {
 

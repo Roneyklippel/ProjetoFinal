@@ -20,10 +20,16 @@
     </com.google.android.material.tabs.TabLayout>
 
     <Button
-        android:id="@+id/btn_nova_mensagem"
+        android:id="@+id/btn_novo_Chamado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ESCREVER MENSAGEM" />
+        android:text="Abrir Chamado" />
+
+    <Button
+        android:id="@+id/btnNovoChamadoFechado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fechar Chamado" />
 
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"

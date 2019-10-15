@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".NovaMensagemActivity"></activity>
+        <activity android:name=".model.FecharChamadoActivity"></activity>
 
 
     </application>
